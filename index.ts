@@ -3,6 +3,7 @@ import { galleryRouter } from "./src/routers/GalleryRouter";
 import { imageRouter } from "./src/routers/ImageRouter";
 import { organizationRouter } from "./src/routers/OrganizationRouter";
 import { userRouter } from "./src/routers/UserRouter";
+import "reflect-metadata";
 // const express = require('express')
 const app = express();
 const port = process.env.PORT || 3003;
