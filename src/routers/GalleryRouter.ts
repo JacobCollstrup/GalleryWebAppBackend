@@ -1,5 +1,5 @@
 import express from "express";
-import GalleryController from "../controllers/GalleryController";
+import GalleryController from "../Controllers/GalleryController";
 
 export let galleryRouter = express.Router();
 
