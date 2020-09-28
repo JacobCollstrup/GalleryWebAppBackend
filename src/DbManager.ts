@@ -7,6 +7,7 @@ import { OrganizationModel } from "./Models/OrganizationModel";
 import { UserModel } from "./Models/UserModel";
 
 export class DbManager {
+  private static instance: DbManager;
   constructor() {
     createConnection({
       type: "postgres",
@@ -19,10 +20,22 @@ export class DbManager {
       entities: [__dirname + "/Models/*.ts"],
       synchronize: true,
       logging: false,
+      ssl: true,
+      extra: {
+        ssl: {
+          rejectUnauthorized: false,
+        },
+      },
     })
       .then((connection) => {
         // here you can start to work with your entities
       })
       .catch((error) => console.log(error));
+  }
+  public static getInstance(): DbManager {
+    if (!DbManager.instance) {
+      DbManager.instance = new DbManager();
+    }
+    return DbManager.instance;
   }
 }
