@@ -7,12 +7,34 @@
     {
       "type": "node",
       "request": "launch",
+      "name": "Launch as compiled",
+      "program": "${workspaceFolder}/src/server.ts",
+      "preLaunchTask": "tsc: build - tsconfig.json",
+      "outFiles": [
+        "${workspaceFolder}/out/**/*.js"
+      ],
+      "sourceMaps": true,
+      "skipFiles": [
+        "<node_internals>/**",
+        "inspector_async_hook.js",
+        "async_hooks.js"
+      ],
+      "trace": true
+    },
+    {
+      "type": "node",
+      "request": "launch",
       "name": "Launch Program",
-      "runtimeArgs": ["-r", "ts-node/register"],
+      "runtimeArgs": [
+        "-r",
+        "ts-node/register"
+      ],
       "skipFiles": ["<node_internals>/**"],
-      "args": ["${workspaceFolder}/index.ts"],
-      "internalConsoleOptions": "neverOpen",
-      "console": "integratedTerminal"
-    }
+      "args": [
+        "${workspaceFolder}/src/server.ts"
+      ],
+      // "internalConsoleOptions": "neverOpen",
+      // "console": "integratedTerminal"
+    },
   ]
 }
