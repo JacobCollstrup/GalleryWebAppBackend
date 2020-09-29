@@ -29,10 +29,19 @@ export default class GalleryController {
 
   async post(req: Request, res: Response) {
     try {
+      console.log('1');
+      
       let gallery = req.body.gallery;
+      console.log('2');
+      
       if (!gallery) return res.sendStatus(400);
-
-      let result = await this.getRepository().save(gallery);
+      console.log('3');
+      
+      let repo = this.getRepository();
+      console.log('4');
+      console.log('gallery', gallery);
+      let result = await repo.save(gallery);
+      console.log('result', result);
 
       return res.send({ gallery });
     } catch (error) {

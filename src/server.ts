@@ -6,6 +6,7 @@ import { userRouter } from "./Routers/UserRouter";
 import "reflect-metadata";
 import { createConnection } from "typeorm";
 import bodyParser from "body-parser";
+import path from 'path';
 
 
 const port = process.env.PORT || 3003;
@@ -14,6 +15,8 @@ app.use(bodyParser.json())
 
 async function setUpAll() {
   try {
+    let modelPath = path.join(__dirname, "/Models/*.js");
+    console.log('myPath', modelPath);
     await createConnection({
       type: "postgres",
       host: "ec2-46-137-124-19.eu-west-1.compute.amazonaws.com",
@@ -22,7 +25,7 @@ async function setUpAll() {
       password:
         "5f18dd9693b957f4e7ac54aa41d9f68cffe29e394a6a129d05f256542f01f5fb",
       database: "db5gplctthfe36",
-      entities: [__dirname + "/src/Models/*.ts"],
+      entities: [modelPath],
       synchronize: true,
       logging: false,
       ssl: true,

@@ -1,9 +1,9 @@
-import { Entity, Column, PrimaryColumn } from "typeorm";
+import { Entity, Column, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class GalleryModel {
-  @PrimaryColumn()
-  id!: number;
+  @PrimaryGeneratedColumn()
+  id: number | undefined;
 
   @Column()
   OrgID!: number;
