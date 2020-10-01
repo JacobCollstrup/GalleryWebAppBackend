@@ -4,14 +4,14 @@ import { GalleryModel } from "../Models/GalleryModel";
 
 export default class GalleryController {
   private repository: Repository<GalleryModel> | undefined;
-  
-  getRepository(){
-    if( this.repository == null) {
+
+  getRepo() {
+    if (this.repository == null) {
       this.repository = getRepository(GalleryModel);
     }
     return this.repository;
   }
-  
+
   async get(req: Request, res: Response) {
     try {
       let id = Number(req.query.id);
@@ -19,7 +19,7 @@ export default class GalleryController {
         res.sendStatus(400);
         return;
       }
-      const gallery = await this.getRepository().findOne(id);
+      const gallery = await this.getRepo().findOne(id);
       return res.send({ gallery });
     } catch (error) {
       console.error("GET: GalleryController", error);
@@ -29,19 +29,12 @@ export default class GalleryController {
 
   async post(req: Request, res: Response) {
     try {
-      console.log('1');
-      
       let gallery = req.body.gallery;
-      console.log('2');
-      
+
       if (!gallery) return res.sendStatus(400);
-      console.log('3');
-      
-      let repo = this.getRepository();
-      console.log('4');
-      console.log('gallery', gallery);
+
+      let repo = this.getRepo();
       let result = await repo.save(gallery);
-      console.log('result', result);
 
       return res.send({ gallery });
     } catch (error) {
