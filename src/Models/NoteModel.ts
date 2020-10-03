@@ -13,4 +13,7 @@ export class NoteModel {
 
   @Column()
   ImageID!: number;
+
+  @Column()
+  Note!: string;
 }
