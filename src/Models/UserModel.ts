@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryColumn } from "typeorm";
+import { Entity, Column, PrimaryColumn, OneToOne, JoinColumn } from "typeorm";
+import { OrganizationModel } from "./OrganizationModel";
 
 @Entity()
 export class UserModel {
@@ -8,6 +9,10 @@ export class UserModel {
   @Column()
   OrgID!: number;
 
+  @OneToOne((Type) => OrganizationModel)
+  @JoinColumn()
+  organization!: OrganizationModel;
+
   @Column()
   Name!: string;
 
@@ -16,4 +21,7 @@ export class UserModel {
 
   @Column()
   hash!: string;
+
+  @Column()
+  iterations!: number;
 }
