@@ -18,10 +18,13 @@ export default class LoginController {
     try {
       const data = req.body.data;
       const user = await this.getRepo().findOne({ where: { Name: data.name } });
-      let result = await hashPassword(data.password, user?.salt);
-      if (result.hash == user?.hash) {
-        return res.send([{ id: data.Id, OrgID: data.OrgID, name: data.Name }]);
+      // @ts-ignore
+      let result = await hashPassword(data.password, user.salt);
+      // @ts-ignore
+      if (result.hash == user.hash) {
+        return res.send([{ id: data.Id, OrgID: data.OrgID, name: data.name }]);
       }
+      res.sendStatus(401);
     } catch (error) {
       console.error("Post: LoginController", error);
       res.sendStatus(500);

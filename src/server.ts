@@ -1,22 +1,22 @@
-import express from "express";
+import express, { Express } from "express";
 import { galleryRouter } from "./Routers/GalleryRouter";
 import { imageRouter } from "./Routers/ImageRouter";
 import { organizationRouter } from "./Routers/OrganizationRouter";
 import { userRouter } from "./Routers/UserRouter";
+import { loginRouter } from "./Routers/LoginRouter";
 import "reflect-metadata";
 import { createConnection } from "typeorm";
 import bodyParser from "body-parser";
-import path from 'path';
-
+import path from "path";
 
 const port = process.env.PORT || 3003;
 const app = express();
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 
-async function setUpAll() {
+async function setUpAll(app: Express) {
   try {
     let modelPath = path.join(__dirname, "/Models/*.js");
-    console.log('myPath', modelPath);
+    console.log("myPath", modelPath);
     await createConnection({
       type: "postgres",
       host: "ec2-46-137-124-19.eu-west-1.compute.amazonaws.com",
@@ -35,20 +35,19 @@ async function setUpAll() {
         },
       },
     });
+
+    app.listen(port, () => {
+      console.log("Hosting on: " + port);
+    });
   } catch (error) {
-    console.log('error', error);
+    console.log("error", error);
   }
 
   app.use("/gallery", galleryRouter);
   app.use("/image", imageRouter);
   app.use("/organization", organizationRouter);
   app.use("/user", userRouter);
-
-  app.listen(port, () => {
-    console.log("Hosting on: " + port);
-  });
+  app.use("/login", loginRouter);
 }
 
-setUpAll();
-
-
+setUpAll(app);
