@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { getRepository, Repository } from "typeorm";
 import { ImageModel } from "../Models/ImageModel";
+import { uploadImage } from "../Helpers/CloudinaryHelper";
 
 export default class ImageController {
   private repository: Repository<ImageModel> | undefined;
@@ -15,8 +16,10 @@ export default class ImageController {
   async get(req: Request, res: Response) {
     try {
       let id = Number(req.query.id);
-      if (isNaN(id)) res.sendStatus(400);
-      return;
+      if (isNaN(id)) {
+        res.sendStatus(400);
+        return;
+      }
 
       const image = await this.getRepo().findOne(id);
       return res.send({ image });
@@ -28,11 +31,17 @@ export default class ImageController {
 
   async post(req: Request, res: Response) {
     try {
-      let image = req.body.image;
+      let imageUploadResult = await uploadImage(); //req.body.image.secure_url;
 
-      if (!image) return res.sendStatus(400);
+      if (!imageUploadResult) return res.sendStatus(400);
 
       let repo = this.getRepo();
+
+      let image = new ImageModel();
+      image.OrgID = 0;
+      image.galleryID = 0;
+      image.url = imageUploadResult.secure_url;
+
       let result = await repo.save(image);
 
       return res.send({ image });

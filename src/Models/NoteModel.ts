@@ -1,9 +1,9 @@
-import { Entity, Column, PrimaryColumn } from "typeorm";
+import { Entity, Column, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class NoteModel {
-  @PrimaryColumn()
-  Id!: number;
+  @PrimaryGeneratedColumn()
+  Id!: undefined;
 
   @Column()
   UserID!: number;

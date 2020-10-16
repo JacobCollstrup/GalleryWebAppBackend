@@ -52,5 +52,7 @@ async function setUpAll(app: Express) {
   app.use("/user", userRouter);
   app.use("/login", loginRouter);
 }
+v2.config(CloudinaryConfig);
 
+uploadImage();
 setUpAll(app);

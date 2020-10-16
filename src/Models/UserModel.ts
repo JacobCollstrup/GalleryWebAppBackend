@@ -1,10 +1,17 @@
-import { Entity, Column, PrimaryColumn, OneToOne, JoinColumn } from "typeorm";
+import {
+  Entity,
+  Column,
+  PrimaryColumn,
+  OneToOne,
+  JoinColumn,
+  PrimaryGeneratedColumn,
+} from "typeorm";
 import { OrganizationModel } from "./OrganizationModel";
 
 @Entity()
 export class UserModel {
-  @PrimaryColumn()
-  Id!: number;
+  @PrimaryGeneratedColumn()
+  Id!: undefined;
 
   @Column()
   OrgID!: number;
