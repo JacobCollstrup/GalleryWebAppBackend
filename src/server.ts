@@ -11,6 +11,7 @@ import "reflect-metadata";
 import { createConnection } from "typeorm";
 import bodyParser from "body-parser";
 import path from "path";
+import ImageController from "./Controllers/ImageController";
 
 const port = process.env.PORT || 3003;
 const app = express();
@@ -54,5 +55,4 @@ async function setUpAll(app: Express) {
 }
 v2.config(CloudinaryConfig);
 
-uploadImage();
 setUpAll(app);

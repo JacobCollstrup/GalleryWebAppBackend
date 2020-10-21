@@ -1,4 +1,11 @@
-import { Entity, Column, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Entity,
+  Column,
+  PrimaryColumn,
+  PrimaryGeneratedColumn,
+  OneToMany,
+} from "typeorm";
+import { UserModel } from "./UserModel";
 
 @Entity()
 export class OrganizationModel {
@@ -7,4 +14,7 @@ export class OrganizationModel {
 
   @Column()
   Name!: string;
+
+  @OneToMany((Type) => UserModel, (user) => user.Id)
+  user!: UserModel[];
 }

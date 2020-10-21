@@ -5,6 +5,8 @@ import {
   OneToOne,
   JoinColumn,
   PrimaryGeneratedColumn,
+  OneToMany,
+  ManyToOne,
 } from "typeorm";
 import { OrganizationModel } from "./OrganizationModel";
 
@@ -13,10 +15,7 @@ export class UserModel {
   @PrimaryGeneratedColumn()
   Id!: undefined;
 
-  @Column()
-  OrgID!: number;
-
-  @OneToOne((Type) => OrganizationModel)
+  @ManyToOne((Type) => OrganizationModel)
   @JoinColumn()
   organization!: OrganizationModel;
 
