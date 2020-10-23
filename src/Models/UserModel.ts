@@ -9,15 +9,25 @@ import {
   ManyToOne,
 } from "typeorm";
 import { OrganizationModel } from "./OrganizationModel";
+import { NoteModel } from "./NoteModel";
+import { GalleryModel } from "./GalleryModel";
 
 @Entity()
 export class UserModel {
   @PrimaryGeneratedColumn()
-  Id!: undefined;
+  id!: undefined;
 
   @ManyToOne((Type) => OrganizationModel)
   @JoinColumn()
   organization!: OrganizationModel;
+
+  @OneToMany((Type) => NoteModel, (note) => note.id)
+  @JoinColumn()
+  note!: NoteModel[];
+
+  @OneToMany((Type) => GalleryModel, (gallery) => gallery.id)
+  @JoinColumn()
+  gallery!: GalleryModel[];
 
   @Column()
   Name!: string;

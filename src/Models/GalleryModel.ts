@@ -1,16 +1,27 @@
-import { Entity, Column, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Entity,
+  Column,
+  PrimaryColumn,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  JoinColumn,
+} from "typeorm";
+import { UserModel } from "./UserModel";
+import { OrganizationModel } from "./OrganizationModel";
 
 @Entity()
 export class GalleryModel {
   @PrimaryGeneratedColumn()
   id: number | undefined;
 
-  @Column()
-  OrgID!: number;
+  @ManyToOne((Type) => OrganizationModel)
+  @JoinColumn()
+  organization!: OrganizationModel;
 
   @Column()
   Name!: string;
 
-  @Column()
-  UserID!: number;
+  @ManyToOne((Type) => UserModel)
+  @JoinColumn()
+  user!: UserModel;
 }

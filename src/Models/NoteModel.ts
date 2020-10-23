@@ -1,18 +1,32 @@
-import { Entity, Column, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Entity,
+  Column,
+  PrimaryColumn,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  JoinColumn,
+  OneToOne,
+} from "typeorm";
+import { UserModel } from "./UserModel";
+import { OrganizationModel } from "./OrganizationModel";
+import { ImageModel } from "./ImageModel";
 
 @Entity()
 export class NoteModel {
   @PrimaryGeneratedColumn()
-  Id!: undefined;
+  id!: undefined;
 
-  @Column()
-  UserID!: number;
+  @ManyToOne((Type) => UserModel)
+  @JoinColumn()
+  user!: UserModel;
 
-  @Column()
-  OrgID!: number;
+  @ManyToOne((Type) => OrganizationModel)
+  @JoinColumn()
+  organization!: OrganizationModel;
 
-  @Column()
-  ImageID!: number;
+  @OneToOne((Type) => ImageModel)
+  @JoinColumn()
+  image!: ImageModel;
 
   @Column()
   Note!: string;

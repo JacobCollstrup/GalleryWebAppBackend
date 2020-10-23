@@ -38,8 +38,7 @@ export default class ImageController {
       let repo = this.getRepo();
 
       let image = new ImageModel();
-      image.OrgID = 0;
-      image.galleryID = 0;
+
       image.url = imageUploadResult.secure_url;
 
       let result = await repo.save(image);
