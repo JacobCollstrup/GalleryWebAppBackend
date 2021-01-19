@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { getRepository, Repository } from "typeorm";
+import { getManager, Repository } from "typeorm";
 import { ImageModel } from "../Models/ImageModel";
 import { uploadImage } from "../Helpers/CloudinaryHelper";
 import { NoteModel } from "../Models/NoteModel";
@@ -9,7 +9,7 @@ export default class ImageController {
 
   getRepo() {
     if (this.repository == null) {
-      this.repository = getRepository(ImageModel);
+      this.repository = getManager().getRepository(ImageModel);
     }
     return this.repository;
   }
@@ -47,6 +47,7 @@ export default class ImageController {
       note.Note = req.body.note;
 
       let result = await repo.save(image);
+      await repo.save(note);
 
       return res.send({ image });
     } catch (error) {

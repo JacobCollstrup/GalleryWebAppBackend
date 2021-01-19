@@ -23,7 +23,7 @@ export class ImageModel {
   @JoinColumn()
   gallery!: GalleryModel;
 
-  @OneToOne((Type) => NoteModel)
+  @OneToOne((Type) => NoteModel, { cascade: true })
   @JoinColumn()
   note!: NoteModel;
 

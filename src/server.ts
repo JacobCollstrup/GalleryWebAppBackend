@@ -19,7 +19,7 @@ app.use(bodyParser.json());
 
 async function setUpAll(app: Express) {
   try {
-    let modelPath = path.join(__dirname, "/Models/*.js");
+    let modelPath = path.join(__dirname, "/Models/*.ts");
     console.log("myPath", modelPath);
     await createConnection({
       type: "postgres",
@@ -30,8 +30,8 @@ async function setUpAll(app: Express) {
         "5f18dd9693b957f4e7ac54aa41d9f68cffe29e394a6a129d05f256542f01f5fb",
       database: "db5gplctthfe36",
       entities: [modelPath],
-      synchronize: true,
-      logging: false,
+      synchronize: false,
+      logging: true,
       ssl: true,
       extra: {
         ssl: {
