@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { getRepository, Repository } from "typeorm";
 import { ImageModel } from "../Models/ImageModel";
 import { uploadImage } from "../Helpers/CloudinaryHelper";
+import { NoteModel } from "../Models/NoteModel";
 
 export default class ImageController {
   private repository: Repository<ImageModel> | undefined;
@@ -31,7 +32,7 @@ export default class ImageController {
 
   async post(req: Request, res: Response) {
     try {
-      let imageUploadResult = await uploadImage(); //req.body.image.secure_url;
+      let imageUploadResult = await uploadImage(req.body.img); //req.body.image.secure_url;
 
       if (!imageUploadResult) return res.sendStatus(400);
 
@@ -40,6 +41,10 @@ export default class ImageController {
       let image = new ImageModel();
 
       image.url = imageUploadResult.secure_url;
+
+      let note = new NoteModel();
+
+      note.Note = req.body.note;
 
       let result = await repo.save(image);
 
