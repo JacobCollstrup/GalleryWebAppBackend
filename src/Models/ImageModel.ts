@@ -14,20 +14,21 @@ import { GalleryModel } from "./GalleryModel";
 @Entity()
 export class ImageModel {
   @PrimaryGeneratedColumn()
-  id!: undefined;
+  id!: number;
 
   @Column()
   url!: string;
 
-  @ManyToOne((Type) => GalleryModel)
-  @JoinColumn()
-  gallery!: GalleryModel;
+  // @ManyToOne((Type) => GalleryModel)
+  // @JoinColumn()
+  // gallery!: GalleryModel;
 
-  @OneToOne((Type) => NoteModel, { cascade: true })
-  @JoinColumn()
+  @OneToOne((Type) => NoteModel, (note) => note.image, {
+    cascade: true,
+  })
   note!: NoteModel;
 
-  @ManyToOne((Type) => OrganizationModel)
-  @JoinColumn()
-  organization!: OrganizationModel;
+  // @ManyToOne((Type) => OrganizationModel)
+  // @JoinColumn()
+  // organization!: OrganizationModel;
 }

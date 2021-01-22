@@ -14,15 +14,15 @@ import { ImageModel } from "./ImageModel";
 @Entity()
 export class NoteModel {
   @PrimaryGeneratedColumn()
-  id!: undefined;
+  id!: number;
 
-  @ManyToOne((Type) => UserModel)
-  @JoinColumn()
-  user!: UserModel;
+  // @ManyToOne((Type) => UserModel)
+  // @JoinColumn()
+  // user!: UserModel;
 
-  @ManyToOne((Type) => OrganizationModel)
-  @JoinColumn()
-  organization!: OrganizationModel;
+  // @ManyToOne((Type) => OrganizationModel)
+  // @JoinColumn()
+  // organization!: OrganizationModel;
 
   @OneToOne((Type) => ImageModel)
   @JoinColumn()

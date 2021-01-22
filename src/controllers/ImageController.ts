@@ -46,8 +46,9 @@ export default class ImageController {
 
       note.Note = req.body.note;
 
+      image.note = note;
+
       let result = await repo.save(image);
-      await repo.save(note);
 
       return res.send({ image });
     } catch (error) {
